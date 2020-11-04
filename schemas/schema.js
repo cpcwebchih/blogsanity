@@ -12,5 +12,39 @@ export default createSchema({
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
     /* Your types here! */
+    {
+      name: 'author',
+      type: 'document',
+      title: 'Author',
+      fields: [
+        {
+          name: 'name',
+          title: 'Nombre',
+          type: 'string'
+        },
+        {
+          name: 'avatar',
+          title: 'Foto',
+          type: 'image'
+        }
+      ]
+    },
+    {
+      name: 'questions',
+      type: 'document',
+      title: 'Questions',
+      fields: [
+        {
+          name: 'question',
+          type: 'string',
+          title: 'Question'
+        },
+        {
+          name: 'answer',
+          type: 'string',
+          title: 'Answer'
+        }
+      ]
+    }
   ])
 })
