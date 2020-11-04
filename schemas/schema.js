@@ -45,6 +45,142 @@ export default createSchema({
           title: 'Answer'
         }
       ]
+    },
+    {
+      name: 'posts',
+      type: 'document',
+      title: 'Posts',
+      fields: [
+        {
+          name: 'title',
+          type: 'string',
+          title: 'Title',
+          validation: Rule => Rule.required()
+
+        },
+        {
+          name: 'slug',
+          type: 'string',
+          title: 'Slug',
+          validation: Rule => Rule.required()
+
+        },
+        {
+          name: 'coverImage',
+          title: 'Cover Image',
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+        },
+        {
+          name: 'date',
+          title: 'Date',
+          type: 'datetime',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'author',
+          title: 'Author',
+          type: 'reference',
+          to: [{type: 'author'}],
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'content',
+          title: 'Content',
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            },
+            {
+              type: 'image',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'alt',
+                  title: 'Description',
+                  options: {
+                    isHighlighted: true
+                  }
+                }
+              ],
+              options: {
+                hotspot: true
+              }
+            }
+          ]
+        },
+      ]
+    },
+    {
+      name: 'sessions',
+      type: 'document',
+      title: 'Sessions',
+      fields: [
+        {
+          name: 'title',
+          type: 'string',
+          title: 'Title',
+          validation: Rule => Rule.required()
+
+        },
+        {
+          name: 'slug',
+          type: 'string',
+          title: 'Slug',
+          validation: Rule => Rule.required()
+
+        },
+        {
+          name: 'coverImage',
+          title: 'Cover Image',
+          type: 'image',
+          options: {
+            hotspot: true
+          },
+        },
+        {
+          name: 'date',
+          title: 'Date',
+          type: 'datetime',
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'author',
+          title: 'Author',
+          type: 'reference',
+          to: [{type: 'author'}],
+          validation: Rule => Rule.required()
+        },
+        {
+          name: 'content',
+          title: 'Content',
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            },
+            {
+              type: 'image',
+              fields: [
+                {
+                  type: 'text',
+                  name: 'alt',
+                  title: 'Description',
+                  options: {
+                    isHighlighted: true
+                  }
+                }
+              ],
+              options: {
+                hotspot: true
+              }
+            }
+          ]
+        },
+      ]
     }
   ])
 })
