@@ -1,9 +1,15 @@
-# Sanity Clean Content Studio
+# Sanity Clean Content Studio CPC
 
-Congratulations, you have now installed the Sanity Content Studio, an open source real-time content editing environment connected to the Sanity backend.
+Este es el editor de contenidos del blog del CPC => https://comiteanticorrupcion.mx/
 
-Now you can do the following things:
+Para correr el proyecto necesitas instalar Node y Npm.
+Luego corre los siguientes comandos en tu terminal.
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+Instala dependencias con
+``` npm install  ```
+
+Corre el proyecto utilizando:
+``` sanity start``` 
+
+Puedes también consultar la documentación de sanity.io en https://www.sanity.io/docs/introduction/getting-started?utm_source=readme
+
