@@ -20,12 +20,14 @@ export default createSchema({
         {
           name: 'name',
           title: 'Nombre',
-          type: 'string'
+          type: 'string',
+          validation: Rule => Rule.required()
         },
         {
           name: 'avatar',
           title: 'Foto',
-          type: 'image'
+          type: 'image',
+          validation: Rule => Rule.required()
         }
       ]
     },
@@ -37,12 +39,14 @@ export default createSchema({
         {
           name: 'question',
           type: 'string',
-          title: 'Question'
+          title: 'Question',
+          validation: Rule => Rule.required()
         },
         {
           name: 'answer',
           type: 'string',
-          title: 'Answer'
+          title: 'Answer',
+          validation: Rule => Rule.required()
         }
       ]
     },
@@ -56,19 +60,18 @@ export default createSchema({
           type: 'string',
           title: 'Title',
           validation: Rule => Rule.required()
-
         },
         {
           name: 'slug',
           type: 'string',
           title: 'Slug',
           validation: Rule => Rule.required()
-
         },
         {
           name: 'coverImage',
           title: 'Cover Image',
           type: 'image',
+          validation: Rule => Rule.required(),
           options: {
             hotspot: true
           },
@@ -137,6 +140,7 @@ export default createSchema({
           name: 'coverImage',
           title: 'Cover Image',
           type: 'image',
+          validation: Rule => Rule.required(),
           options: {
             hotspot: true
           },
