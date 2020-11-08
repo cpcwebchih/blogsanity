@@ -4,6 +4,10 @@ import createSchema from 'part:@sanity/base/schema-creator'
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
+
+import youtube from './youtube';
+
+
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
   // We name our schema
@@ -89,7 +93,7 @@ export default createSchema({
           to: [{type: 'author'}],
           validation: Rule => Rule.required()
         },
-        {
+        {          
           name: 'content',
           title: 'Content',
           type: 'array',
@@ -97,6 +101,7 @@ export default createSchema({
             {
               type: 'block'
             },
+            youtube,
             {
               type: 'image',
               fields: [
@@ -158,7 +163,7 @@ export default createSchema({
           to: [{type: 'author'}],
           validation: Rule => Rule.required()
         },
-        {
+        {          
           name: 'content',
           title: 'Content',
           type: 'array',
@@ -181,7 +186,7 @@ export default createSchema({
               options: {
                 hotspot: true
               }
-            }
+            },
           ]
         }
       ]
