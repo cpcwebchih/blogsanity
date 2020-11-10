@@ -46,11 +46,16 @@ export default createSchema({
           title: 'Question',
           validation: Rule => Rule.required()
         },
-        {
+        {          
           name: 'answer',
-          type: 'string',
           title: 'Answer',
-          validation: Rule => Rule.required()
+          validation: Rule => Rule.required(),
+          type: 'array',
+          of: [
+            {
+              type: 'block'
+            }
+          ]
         }
       ]
     },
