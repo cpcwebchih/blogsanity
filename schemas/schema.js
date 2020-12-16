@@ -1,11 +1,18 @@
+import React from 'react'
 // First, we must import the schema creator
 import createSchema from 'part:@sanity/base/schema-creator'
 
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
-
-
 import youtube from './youtube';
+
+const NormalRightStyle = props => (
+  <p  style={{textAlign: 'right'}}>{props.children}</p>
+)
+
+const NormalCenterStyle = props => (
+  <p style={{textAlign: 'center'}}>{props.children}</p>
+)
 
 
 // Then we give our schema to the builder and provide the result to Sanity
@@ -104,7 +111,27 @@ export default createSchema({
           type: 'array',
           of: [
             {
-              type: 'block'
+              type: 'block',
+              styles: [
+                {
+                  title: 'Normal Center', value: 'normalcenter',
+                  blockEditor: {
+                    render: NormalCenterStyle
+                  }
+                },
+                {title: 'Normal Right', value: 'normalright', 
+                  blockEditor: {
+                    render: NormalRightStyle
+                  }
+                },
+                {title: 'Heading 1', value: 'h1'},
+                {title: 'Heading 2', value: 'h2'},
+                {title: 'Heading 3', value: 'h3'},
+                {title: 'Heading 4', value: 'h4'},
+                {title: 'Heading 5', value: 'h5'},
+                {title: 'Heading 6', value: 'h6'},
+                {title: 'Quote', value: 'blockquote'}
+              ]
             },
             youtube,
             {
@@ -187,7 +214,27 @@ export default createSchema({
           type: 'array',
           of: [
             {
-              type: 'block'
+              type: 'block',
+              styles: [
+                {
+                  title: 'Normal Center', value: 'normalcenter',
+                  blockEditor: {
+                    render: NormalCenterStyle
+                  }
+                },
+                {title: 'Normal Right', value: 'normalright', 
+                  blockEditor: {
+                    render: NormalRightStyle
+                  }
+                },
+                {title: 'Heading 1', value: 'h1'},
+                {title: 'Heading 2', value: 'h2'},
+                {title: 'Heading 3', value: 'h3'},
+                {title: 'Heading 4', value: 'h4'},
+                {title: 'Heading 5', value: 'h5'},
+                {title: 'Heading 6', value: 'h6'},
+                {title: 'Quote', value: 'blockquote'}
+              ]
             },
             {
               type: 'image',
