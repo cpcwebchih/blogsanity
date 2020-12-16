@@ -111,6 +111,19 @@ export default createSchema({
               type: 'image',
               fields: [
                 {
+                  title: 'Image Position',
+                  name: 'imageposition', 
+                  type: 'string',
+                  options: {
+                    list: [
+                      {title: 'Center', value: 'imagecenter'},
+                      {title: 'Left', value: 'imageleft'},
+                      {title: 'Right', value: 'imageright'},
+                    ],
+                    layout: 'radio'
+                  }
+                },
+                {
                   type: 'text',
                   name: 'alt',
                   title: 'Description',
@@ -179,6 +192,19 @@ export default createSchema({
             {
               type: 'image',
               fields: [
+                {
+                  title: 'Image Position',
+                  name: 'imageposition', 
+                  type: 'string',
+                  options: {
+                    list: [
+                      {title: 'Center', value: 'center'},
+                      {title: 'Left', value: 'left'},
+                      {title: 'Right', value: 'right'},
+                    ],
+                    layout: 'radio'
+                  }
+                },
                 {
                   type: 'text',
                   name: 'alt',
