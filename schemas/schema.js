@@ -236,6 +236,7 @@ export default createSchema({
                 {title: 'Quote', value: 'blockquote'}
               ]
             },
+            youtube,
             {
               type: 'image',
               fields: [
@@ -245,9 +246,9 @@ export default createSchema({
                   type: 'string',
                   options: {
                     list: [
-                      {title: 'Center', value: 'center'},
-                      {title: 'Left', value: 'left'},
-                      {title: 'Right', value: 'right'},
+                      {title: 'Center', value: 'imagecenter'},
+                      {title: 'Left', value: 'imageleft'},
+                      {title: 'Right', value: 'imageright'},
                     ],
                     layout: 'radio'
                   }
