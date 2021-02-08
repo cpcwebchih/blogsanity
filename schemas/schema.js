@@ -1,274 +1,111 @@
-import React from 'react'
-// First, we must import the schema creator
-import createSchema from 'part:@sanity/base/schema-creator'
+import Layout from '../components/layout'
+import Header from '../components/header'
+import Content from '../components/content';
+import FaqItem from '../components/faqItem';
+import Section from '../components/section';
+import {getAllFaqs} from '../lib/api'
+import customtheme from '../customtheme.js'
+import { Flex, Text } from '@chakra-ui/core';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import CpcSeo from '../components/cpcseo'
 
-// Then import schema types from any plugins that might expose them
-import schemaTypes from 'all:part:@sanity/base/schema-type'
-import youtube from './youtube';
+export default function FaqPage({faqs}) {
+    const {colors} = customtheme
+    const router = useRouter()
+    const path = process.env.NEXT_PUBLIC_BASE_URL + router.asPath
 
-const NormalRightStyle = props => (
-  <p  style={{textAlign: 'right'}}>{props.children}</p>
-)
+    return (
+        <>
+            <CpcSeo 
+                title="Preguntas frecuentes al CPC - Comité de Participación Ciudadana de Chihuahua"
+                description="Preguntas más frecuentes hechas al Comité de Participación Ciudadana de Chihuahua (CPC)."
+                url={path}
+                imageUrl={process.env.NEXT_PUBLIC_OPENGRAPH_IMAGE_URL}
+            />
+            <Layout >
+                <Header position="fixed"/>
+                <Content>
+                    {/* Top SECTION */}
+                    <Section bg="cpc.red" color="cpc.white">
+                        <Text fontSize={["1.75em", "1.75em", "2em", "2em"]} fontFamily="cpc.gothamBold" 
+                        fontWeight="300" textAlign="center" lineHeight={["1em", "1em", "1.18em", "1.18em"]} 
+                        letterSpacing={["-.05em", "0", "0", "0"]} width={["100%", "80%", "80%", "75%"]}>
+                            Preguntas frecuentes hechas al Comité de Participación Ciudadana
+                        </Text>
+                    </Section> 
+                    <Flex bg="cpc.white" color="cpc.black">
+                        <Flex direction={["column", "column", "column", "column"]} 
+                        width={["100%","500px", "600px", "600px"]} justify="center" alignItems="center"
+                        p="0px">
+                            <Text color="cpc.black" 
+                            pl={["1.5em", "1em", "1em", "1em"]}
+                            pr={[".7em", "1em", "1em", "1em"]} 
+                            pt={["1.5em", "1em", "1em", "1em"]} 
+                            pb={["0.5em", "1em", "1em", "1em"]} 
+                            fontFamily="cpc.gothamCondensedBook" 
+                            fontSize={["1.3em", "1.3em", "1.4em", "1.4em"]} 
+                            textAlign="left" 
+                            lineHeight={["1.2em", "1.2em", "1.2em", "1.2em"]}>
+                                Aquí vamos a estar resolviendo las preguntas más frecuentes que
+                                nos hagan llegar al Comité de Participación Ciudadana de Chihuahua 
+                                (CPC) tanto por {" "}
+                                <Link href="https://buscador.plataformadetransparencia.org.mx/web/guest/buscadornacional?buscador=%22comit%C3%A9%20de%20participaci%C3%B3n%20ciudadana%22&coleccion=2">
+                                <a className="redlink"> 
+                                    Solicitudes de Transparencia 
+                                </a>
+                            </Link> como por la sección de {" "}
+                            <Link href="/contacto">
+                                <a className="redlink">
+                                Contacto.
+                                </a>
+                            </Link>
+                        </Text>
+                    </Flex>
+                    </Flex> 
+                    <Flex bg="cpc.white" color="cpc.red">
+                        <Flex direction="column" 
+                        height="auto">
+                            {faqs.map(faq => <FaqItem 
+                                key={faq._id} 
+                                question={faq.question} 
+                                answer={faq.answer}/>)}
+                        </Flex>
+                    </Flex>
+                </Content>
+                <style jsx>{`
+                    .redlink {
+                        color: ${colors.cpc.red};
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+                    .redText {
+                        color: ${colors.cpc.red};
+                    }
+                `}
+                </style>
+            </Layout>
+        </>
+    )
+}
 
-const NormalCenterStyle = props => (
-  <p style={{textAlign: 'center'}}>{props.children}</p>
-)
-
-
-// Then we give our schema to the builder and provide the result to Sanity
-export default createSchema({
-  // We name our schema
-  name: 'default',
-  // Then proceed to concatenate our document type
-  // to the ones provided by any plugins that are installed
-  types: schemaTypes.concat([
-    /* Your types here! */
-    {
-      name: 'author',
-      type: 'document',
-      title: 'Author',
-      fields: [
-        {
-          name: 'name',
-          title: 'Nombre',
-          type: 'string',
-          validation: Rule => Rule.required()
-        },
-        {
-          name: 'avatar',
-          title: 'Foto',
-          type: 'image',
-          validation: Rule => Rule.required()
-        }
-      ]
-    },
-    {
-      name: 'questions',
-      type: 'document',
-      title: 'Questions',
-      fields: [
-        {
-          name: 'question',
-          type: 'string',
-          title: 'Question',
-          validation: Rule => Rule.required()
-        },
-        {          
-          name: 'answer',
-          title: 'Answer',
-          validation: Rule => Rule.required(),
-          type: 'array',
-          of: [
-            {
-              type: 'block'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      name: 'posts',
-      type: 'document',
-      title: 'Posts',
-      fields: [
-        {
-          name: 'title',
-          type: 'string',
-          title: 'Title',
-          validation: Rule => Rule.required()
-        },
-        {
-          name: 'slug',
-          type: 'string',
-          title: 'Slug',
-          validation: Rule => Rule.required()
-        },
-        {
-          name: 'coverImage',
-          title: 'Cover Image',
-          type: 'image',
-          validation: Rule => Rule.required(),
-          options: {
-            hotspot: true
-          },
-        },
-        {
-          name: 'date',
-          title: 'Date',
-          type: 'datetime',
-          validation: Rule => Rule.required()
-        },
-        {
-          name: 'author',
-          title: 'Author',
-          type: 'reference',
-          to: [{type: 'author'}],
-          validation: Rule => Rule.required()
-        },
-        {          
-          name: 'content',
-          title: 'Content',
-          type: 'array',
-          of: [
-            {
-              type: 'block',
-              styles: [
-                {
-                  title: 'Normal Center', value: 'normalcenter',
-                  blockEditor: {
-                    render: NormalCenterStyle
-                  }
-                },
-                {title: 'Normal Right', value: 'normalright', 
-                  blockEditor: {
-                    render: NormalRightStyle
-                  }
-                },
-                {title: 'Heading 1', value: 'h1'},
-                {title: 'Heading 2', value: 'h2'},
-                {title: 'Heading 3', value: 'h3'},
-                {title: 'Heading 4', value: 'h4'},
-                {title: 'Heading 5', value: 'h5'},
-                {title: 'Heading 6', value: 'h6'},
-                {title: 'Quote', value: 'blockquote'}
-              ]
-            },
-            youtube,
-            {
-              type: 'image',
-              fields: [
-                {
-                  title: 'Image Position',
-                  name: 'imageposition', 
-                  type: 'string',
-                  options: {
-                    list: [
-                      {title: 'Center', value: 'imagecenter'},
-                      {title: 'Left', value: 'imageleft'},
-                      {title: 'Right', value: 'imageright'},
-                    ],
-                    layout: 'radio'
-                  }
-                },
-                {
-                  type: 'text',
-                  name: 'alt',
-                  title: 'Description',
-                  options: {
-                    isHighlighted: true
-                  }
-                }
-              ],
-              options: {
-                hotspot: true
-              }
-            }
-          ]
-        },
-      ]
-    },
-    {
-      name: 'sessions',
-      type: 'document',
-      title: 'Sessions',
-      fields: [
-        {
-          name: 'title',
-          type: 'string',
-          title: 'Title',
-          validation: Rule => Rule.required()
-
-        },
-        {
-          name: 'slug',
-          type: 'string',
-          title: 'Slug',
-          validation: Rule => Rule.required()
-
-        },
-        {
-          name: 'coverImage',
-          title: 'Cover Image',
-          type: 'image',
-          validation: Rule => Rule.required(),
-          options: {
-            hotspot: true
-          },
-        },
-        {
-          name: 'date',
-          title: 'Date',
-          type: 'datetime',
-          validation: Rule => Rule.required()
-        },
-        {
-          name: 'author',
-          title: 'Author',
-          type: 'reference',
-          to: [{type: 'author'}],
-          validation: Rule => Rule.required()
-        },
-        {          
-          name: 'content',
-          title: 'Content',
-          type: 'array',
-          of: [
-            {
-              type: 'block',
-              styles: [
-                {
-                  title: 'Normal Center', value: 'normalcenter',
-                  blockEditor: {
-                    render: NormalCenterStyle
-                  }
-                },
-                {title: 'Normal Right', value: 'normalright', 
-                  blockEditor: {
-                    render: NormalRightStyle
-                  }
-                },
-                {title: 'Heading 1', value: 'h1'},
-                {title: 'Heading 2', value: 'h2'},
-                {title: 'Heading 3', value: 'h3'},
-                {title: 'Heading 4', value: 'h4'},
-                {title: 'Heading 5', value: 'h5'},
-                {title: 'Heading 6', value: 'h6'},
-                {title: 'Quote', value: 'blockquote'}
-              ]
-            },
-            youtube,
-            {
-              type: 'image',
-              fields: [
-                {
-                  title: 'Image Position',
-                  name: 'imageposition', 
-                  type: 'string',
-                  options: {
-                    list: [
-                      {title: 'Center', value: 'imagecenter'},
-                      {title: 'Left', value: 'imageleft'},
-                      {title: 'Right', value: 'imageright'},
-                    ],
-                    layout: 'radio'
-                  }
-                },
-                {
-                  type: 'text',
-                  name: 'alt',
-                  title: 'Description',
-                  options: {
-                    isHighlighted: true
-                  }
-                }
-              ],
-              options: {
-                hotspot: true
-              }
-            },
-          ]
-        }
-      ]
+//this functions run on build time on server.
+//provides props to your page, and makes it static
+export async function getStaticProps(){
+    let faqs;
+    try{
+        const response = await getAllFaqs();
+        faqs = response
+    } catch(e){
+        faqs = []
     }
-  ])
-})
+
+    return {
+        props: {
+            faqs
+        },
+        revalidate: 10
+
+    }
+
+}
